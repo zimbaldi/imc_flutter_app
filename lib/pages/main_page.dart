@@ -87,6 +87,7 @@ class _MainPageState extends State<MainPage> {
                                 content: Text("O peso deve ser preenchido")));
                         return;
                       }
+
                       if (alturaController.text.trim().isEmpty ||
                           alturaController.text.trim() == 0.toString()) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -96,10 +97,53 @@ class _MainPageState extends State<MainPage> {
                       }
 
                       setState(() {
-                        peso = double.parse(
-                            pesoController.text.replaceAll(",", ".").trim());
-                        altura = double.parse(
-                            alturaController.text.replaceAll(",", ".").trim());
+                        try {
+                          peso = double.parse(
+                              pesoController.text.replaceAll(",", ".").trim());
+                        } catch (e) {
+                          showDialog(
+                              context: context,
+                              builder: (_) {
+                                return AlertDialog(
+                                  title: const Text('IMC App'),
+                                  content: const Text(
+                                      'Favor informar um peso válido'),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('Ok'))
+                                  ],
+                                );
+                              });
+                          return;
+                        }
+
+                        try {
+                          altura = double.parse(alturaController.text
+                              .replaceAll(",", ".")
+                              .trim());
+                        } catch (e) {
+                          showDialog(
+                              context: context,
+                              builder: (_) {
+                                return AlertDialog(
+                                  title: const Text('IMC App'),
+                                  content: const Text(
+                                      'Favor informar uma altura válida'),
+                                  actions: [
+                                    TextButton(
+                                        onPressed: () {
+                                          Navigator.pop(context);
+                                        },
+                                        child: const Text('Ok'))
+                                  ],
+                                );
+                              });
+                          return;
+                        }
+
                         calcular();
 
                         showDialog(
