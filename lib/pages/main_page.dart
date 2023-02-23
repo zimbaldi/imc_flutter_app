@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:imc_flutter_app/pages/records_page.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
@@ -156,6 +157,11 @@ class _MainPageState extends State<MainPage> {
                                   TextButton(
                                       onPressed: () {
                                         Navigator.pop(context);
+                                        Navigator.push(
+                                            context,
+                                            MaterialPageRoute(
+                                                builder: (context) =>
+                                                    const RecordsPage()));
                                       },
                                       child: const Text("OK"))
                                 ],
@@ -175,27 +181,39 @@ class _MainPageState extends State<MainPage> {
                   ),
                 ),
                 TextButton(
-                    onPressed: () {
-                      showModalBottomSheet(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15)),
-                          context: context,
-                          builder: (BuildContext bc) {
-                            return Padding(
-                              padding: const EdgeInsets.all(15),
-                              child: Column(
-                                children: [
-                                  Image.asset("lib/images/tabela-imc.png"),
-                                ],
-                              ),
-                            );
-                          });
-                    },
-                    child: const Text(
-                      "Entenda seu IMC",
-                      style:
-                          TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
-                    ))
+                  onPressed: () {
+                    showModalBottomSheet(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(15)),
+                        context: context,
+                        builder: (BuildContext bc) {
+                          return Padding(
+                            padding: const EdgeInsets.all(15),
+                            child: Column(
+                              children: [
+                                Image.asset("lib/images/tabela-imc.png"),
+                              ],
+                            ),
+                          );
+                        });
+                  },
+                  child: const Text(
+                    "Entenda seu IMC",
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => const RecordsPage()));
+                  },
+                  child: const Text(
+                    "Histórico",
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600),
+                  ),
+                ),
               ],
             )),
           ),
