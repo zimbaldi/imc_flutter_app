@@ -3,9 +3,10 @@ import 'sqlite_model.dart';
 
 //  CREATE TABLE imc (
 //           id INTEGER PRIMARY KEY AUTOINCREMENT,
-//           altura DOUBLE,
-//           peso DOUBLE,
-//           resultado DOUBLE
+//           altura REAL,
+//           peso REAL,
+//           resultado REAL,
+//           data STRING
 //   );'''
 
 class SqliteRepository {
@@ -13,14 +14,15 @@ class SqliteRepository {
     List<SqliteModel> imc = [];
     var db = await SqliteDatabase().getDatabase();
     var result =
-        await db.rawQuery('SELECT id, altura, peso, resultado FROM imc');
+        await db.rawQuery('SELECT id, altura, peso, resultado, data FROM imc');
     for (var element in result) {
       imc.add(
         SqliteModel(
             int.parse(element['id'].toString()),
             double.parse(element['altura'].toString()),
             double.parse(element['peso'].toString()),
-            double.parse(element['resultado'].toString())),
+            double.parse(element['resultado'].toString()),
+            element['data'].toString()),
       );
     }
     return imc;
@@ -29,19 +31,25 @@ class SqliteRepository {
   Future<void> save(SqliteModel sqliteModel) async {
     var db = await SqliteDatabase().getDatabase();
     await db.rawInsert(
-        'INSERT INTO imc (altura, peso, resultado) values(?,?,?)',
-        [sqliteModel.altura, sqliteModel.peso, sqliteModel.resultado]);
+        'INSERT INTO imc (altura, peso, resultado, data) values(?,?,?,?)', [
+      sqliteModel.altura,
+      sqliteModel.peso,
+      sqliteModel.resultado,
+      sqliteModel.data
+    ]);
   }
 
   Future<void> update(SqliteModel sqliteModel) async {
     var db = await SqliteDatabase().getDatabase();
     await db.rawInsert(
-        'UPDATE imc SET altura = ?, peso = ?, resultado = ? WHERE id = ?', [
-      sqliteModel.altura,
-      sqliteModel.peso,
-      sqliteModel.resultado,
-      sqliteModel.id
-    ]);
+        'UPDATE imc SET altura = ?, peso = ?, resultado = ?, data = ? WHERE id = ?',
+        [
+          sqliteModel.altura,
+          sqliteModel.peso,
+          sqliteModel.resultado,
+          sqliteModel.id,
+          sqliteModel.data,
+        ]);
   }
 
   Future<void> delete(int id) async {

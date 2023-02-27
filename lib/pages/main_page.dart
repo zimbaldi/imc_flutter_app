@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:imc_flutter_app/pages/records_page.dart';
+import 'package:intl/intl.dart';
 
 import '../sqlite/sqlite_model.dart';
 import '../sqlite/sqlite_repository.dart';
@@ -18,6 +19,7 @@ class _MainPageState extends State<MainPage> {
   double imc = 0;
   double altura = 0;
   double peso = 0;
+  String data = DateFormat("dd-MM-yyyy").format(DateTime.now());
 
   SqliteRepository sqliteRepository = SqliteRepository();
   var _imc = const <SqliteModel>[];
@@ -193,7 +195,8 @@ class _MainPageState extends State<MainPage> {
                             });
                       });
                       await sqliteRepository
-                          .save(SqliteModel(0, altura, peso, imc));
+                          .save(SqliteModel(0, altura, peso, imc, data));
+                      print(data);
                     },
                     style: ButtonStyle(
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(

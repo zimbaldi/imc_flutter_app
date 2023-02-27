@@ -55,10 +55,10 @@ class _RecordsPageState extends State<RecordsPage> {
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              const Center(
+                              Center(
                                   child: Text(
-                                'Data',
-                                style: TextStyle(fontSize: 18),
+                                imc.data,
+                                style: const TextStyle(fontSize: 18),
                               )),
                               Padding(
                                 padding: const EdgeInsets.only(left: 8.0),

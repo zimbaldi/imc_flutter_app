@@ -7,7 +7,8 @@ Map<int, String> scripts = {
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           altura REAL,
           peso REAL,
-          resultado REAL
+          resultado REAL,
+          data STRING
   );'''
 };
 
