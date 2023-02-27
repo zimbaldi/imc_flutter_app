@@ -29,7 +29,7 @@ class SqliteRepository {
   Future<void> save(SqliteModel sqliteModel) async {
     var db = await SqliteDatabase().getDatabase();
     await db.rawInsert(
-        'INSERT INTO tarefas (altura, peso, resultado) values(?,?)',
+        'INSERT INTO imc (altura, peso, resultado) values(?,?,?)',
         [sqliteModel.altura, sqliteModel.peso, sqliteModel.resultado]);
   }
 

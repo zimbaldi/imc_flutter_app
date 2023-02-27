@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_getters_setters
+
 class SqliteModel {
   int _id = 0;
   double _altura = 0;

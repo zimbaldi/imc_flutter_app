@@ -5,9 +5,9 @@ import 'package:path/path.dart' as path;
 Map<int, String> scripts = {
   1: ''' CREATE TABLE imc (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          altura DOUBLE,
-          peso DOUBLE,
-          resultado DOUBLE
+          altura REAL,
+          peso REAL,
+          resultado REAL
   );'''
 };
 

@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:imc_flutter_app/pages/records_page.dart';
 
+import '../sqlite/sqlite_model.dart';
+import '../sqlite/sqlite_repository.dart';
+
 class MainPage extends StatefulWidget {
   const MainPage({super.key});
 
@@ -16,8 +19,29 @@ class _MainPageState extends State<MainPage> {
   double altura = 0;
   double peso = 0;
 
+  SqliteRepository sqliteRepository = SqliteRepository();
+  var _imc = const <SqliteModel>[];
+
+  @override
+  void initState() {
+    getImc();
+    super.initState();
+  }
+
+  void getImc() async {
+    _imc = await sqliteRepository.getData();
+    setState(() {});
+  }
+
   void calcular() {
     imc = peso / (altura * altura);
+  }
+
+  @override
+  void dispose() {
+    pesoController.dispose();
+    alturaController.dispose();
+    super.dispose();
   }
 
   @override
@@ -80,7 +104,7 @@ class _MainPageState extends State<MainPage> {
                   margin:
                       const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
                   child: TextButton(
-                    onPressed: () {
+                    onPressed: () async {
                       if (pesoController.text.trim().isEmpty ||
                           pesoController.text.trim() == 0.toString()) {
                         ScaffoldMessenger.of(context).showSnackBar(
@@ -168,6 +192,8 @@ class _MainPageState extends State<MainPage> {
                               );
                             });
                       });
+                      await sqliteRepository
+                          .save(SqliteModel(0, altura, peso, imc));
                     },
                     style: ButtonStyle(
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
