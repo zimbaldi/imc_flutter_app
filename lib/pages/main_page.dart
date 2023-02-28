@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:imc_flutter_app/pages/records_page.dart';
 import 'package:intl/intl.dart';
 
@@ -80,6 +81,10 @@ class _MainPageState extends State<MainPage> {
                     width: double.infinity,
                     margin: const EdgeInsets.symmetric(horizontal: 32),
                     child: TextField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d{0,3}\,?.?\d{0,2}'))
+                      ],
                       controller: pesoController,
                       onChanged: (value) {},
                       keyboardType:
@@ -94,6 +99,10 @@ class _MainPageState extends State<MainPage> {
                     width: double.infinity,
                     margin: const EdgeInsets.symmetric(horizontal: 32),
                     child: TextField(
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                            RegExp(r'^\d{0,1}\,?.?\d{0,2}'))
+                      ],
                       controller: alturaController,
                       onChanged: (value) {},
                       keyboardType:
@@ -196,7 +205,7 @@ class _MainPageState extends State<MainPage> {
                       });
                       await sqliteRepository
                           .save(SqliteModel(0, altura, peso, imc, data));
-                      print(data);
+                      //print(data);
                     },
                     style: ButtonStyle(
                         shape: MaterialStateProperty.all(RoundedRectangleBorder(
